@@ -75,7 +75,7 @@ export const Lobby = () => {
 
     function connectTows (token) {
         if (token) {
-            const ws = new WebSocket (`ws://localhost:3000?token=${token}`);
+            const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`);
             setWs (ws);
             ws.addEventListener ('message', handleMessage)
             ws.addEventListener('open', () => {
@@ -139,6 +139,7 @@ export const Lobby = () => {
             console.log('In rejected')
             if(messageData.rejected.userId==id){
                 alert(`${messageData.rejected.username} is already playing`)
+                setIsPlaying(false)
             }
         }
         if('accept' in messageData && !isPlaying){
