@@ -75,7 +75,8 @@ export const Lobby = () => {
 
     function connectTows (token) {
         if (token) {
-            const ws = new WebSocket (`ws://localhost:3000?token=${token}`);
+            // const ws = new WebSocket (`ws://localhost:3000?token=${token}`);
+            const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`)
             setWs (ws);
             ws.addEventListener ('message', handleMessage)
             ws.addEventListener('open', () => {
