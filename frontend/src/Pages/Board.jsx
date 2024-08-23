@@ -80,9 +80,25 @@ const handleUnload = () => {
   // },[lose]) 
   function connectTows(token){
       if(token){
-        const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`);
+        //const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`);
+        const ws = new WebSocket (`ws://localhost:3000?token=${token}`)
         setWs(ws);
         ws.addEventListener('message',handleMessage)
+        ws.addEventListener('open', () => {
+            console.log('WebSocket connection established');
+            const obj={
+              userId:selectedUserId,
+              username:username,
+              playerId:id
+            }
+            console.log('obj is:',obj)
+            ws.send(JSON.stringify({
+              OpponentAccepted:true,
+              userId:selectedUserId,
+              username:username,
+              playerId:id
+            }));
+        });
       }else{
         navigate('/')
       }

@@ -9,7 +9,8 @@ import { UserContextProvider } from './UserContext'
 import { Lobby } from './Pages/Lobby'
 
 function App() {
-  axios.defaults.baseURL='https://othello-s6zk.onrender.com/'
+  //axios.defaults.baseURL='https://othello-s6zk.onrender.com/'
+  axios.defaults.baseURL = 'http://localhost:3000/'
   return (
 
     <UserContextProvider>

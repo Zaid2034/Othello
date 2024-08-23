@@ -75,16 +75,16 @@ export const Lobby = () => {
 
     function connectTows (token) {
         if (token) {
-            const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`);
+            const ws = new WebSocket (`ws://localhost:3000?token=${token}`);
             setWs (ws);
             ws.addEventListener ('message', handleMessage)
             ws.addEventListener('open', () => {
-            console.log('WebSocket connection established');
-            ws.send(JSON.stringify({
-                isPlaying: false,
-                loserId: id
-            }));
-        });
+                console.log('WebSocket connection established');
+                ws.send(JSON.stringify({
+                    isPlaying: false,
+                    loserId: id
+                }));
+            });
             console.log ('in connection to ws');
         } else {
             navigate ('/');
@@ -154,6 +154,14 @@ export const Lobby = () => {
                 setTurn(1) 
             }
         }
+        if('opponentAccepted' in messageData){
+            console.log('In opponent accepted')
+            if(messageData.userId==id){
+                setSelectedUserId(messageData.requestedId)
+                setSelectedUsername(messageData.requestedUsername)
+                setIsPlaying(true)
+            }
+        }
     }
 
     // if(isPlaying){
@@ -173,7 +181,7 @@ export const Lobby = () => {
             accepted:true,
             userId:playerId
         }))
-        setIsPlaying (true)
+        //setIsPlaying (true)
     }
     console.log('id is:',id)
     function acceptGame(playerId){
