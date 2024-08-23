@@ -247,6 +247,19 @@ wss.on('connection',(connection,req)=>{
       }))
       })
     }
+    if('OpponentAccepted' in messageData){
+      // console.log('Lobby id:',messageData.loserId);
+      console.log('In opponent accepted');
+      console.log('message Data is:',messageData);
+      [...wss.clients].forEach(client=>{
+        client.send(JSON.stringify({
+         opponentAccepted:true,
+         userId:messageData.userId,
+         requestedId:messageData.playerId,
+         requestedUsername:messageData.username
+      }))
+      })
+    }
     
   })
 
