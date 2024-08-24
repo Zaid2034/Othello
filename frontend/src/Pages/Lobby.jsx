@@ -24,12 +24,16 @@ export const Lobby = () => {
     useEffect (() => {
         const token = localStorage.getItem ('token');
         connectTows (token);
+        setTurn (0);
         if(!id){
+            console.log('In if 1')
             navigate('/')
         }
+        
         return ()=>{
            
         }
+        
     }, []);
     useEffect(()=>{
         console.log('In lobby useEffect')
@@ -48,19 +52,20 @@ export const Lobby = () => {
     //     }
     // },[ws])
 
-    useEffect (() => {
-        const isRefreshed = sessionStorage.getItem ('isRefreshed');
-        if (isRefreshed) {
-            sessionStorage.removeItem ('isRefreshed');
-            navigate ('/');
-        } else {
-            sessionStorage.setItem ('isRefreshed', 'true');
-        }
+    // useEffect (() => {
+    //     const isRefreshed = sessionStorage.getItem ('isRefreshed');
+    //     if (isRefreshed) {
+    //         sessionStorage.removeItem ('isRefreshed');
+    //         console.log('In if refrsh')
+    //        // navigate ('/');
+    //     } else {
+    //         sessionStorage.setItem ('isRefreshed', 'true');
+    //     }
 
-        return () => {
-            sessionStorage.removeItem ('isRefreshed');
-        };
-    },[navigate]);
+    //     return () => {
+    //         sessionStorage.removeItem ('isRefreshed');
+    //     };
+    // },[navigate]);
     // useEffect(()=>{
     //     if(leaveLoseId){
     //         if(leaveLoseId.userId==id){
@@ -75,12 +80,13 @@ export const Lobby = () => {
 
     function connectTows (token) {
         if (token) {
-            // const ws = new WebSocket (`ws://localhost:3000?token=${token}`);
-            const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`)
+            const ws = new WebSocket (`ws://localhost:3000?token=${token}`);
+            //const ws = new WebSocket (`wss://othello-s6zk.onrender.com?token=${token}`)
             setWs (ws);
             ws.addEventListener ('message', handleMessage)
             ws.addEventListener('open', () => {
                 console.log('WebSocket connection established');
+                setIsPlaying(false)
                 ws.send(JSON.stringify({
                     isPlaying: false,
                     loserId: id
@@ -88,6 +94,7 @@ export const Lobby = () => {
             });
             console.log ('in connection to ws');
         } else {
+            console.log('In else 1______________________')
             navigate ('/');
         }
     }

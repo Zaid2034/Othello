@@ -7,10 +7,11 @@ import axios from 'axios'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { UserContextProvider } from './UserContext'
 import { Lobby } from './Pages/Lobby'
+import { Home } from './Pages/Home'
 
 function App() {
-  axios.defaults.baseURL='https://othello-s6zk.onrender.com/'
-  // axios.defaults.baseURL = 'http://localhost:3000/'
+  //axios.defaults.baseURL='https://othello-s6zk.onrender.com/'
+  axios.defaults.baseURL = 'http://localhost:3000/'
   return (
 
     <UserContextProvider>
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<LoginSignUpForm/>}/>
         <Route path='/lobby' element={<Lobby/>}/>
         <Route path='/game' element={<Board/>}/>
+        <Route path="/home" element={<Home/>} />
       </Routes>
     </BrowserRouter>
 

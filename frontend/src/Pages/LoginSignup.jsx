@@ -63,7 +63,7 @@ const LoginSignUpForm = () => {
             setId(res.data.userId)
             setUsername(res.data.username)
             console.log('res in use effect:',res)
-            navigate('/lobby')
+            navigate('/home')
           }
         })
 
@@ -129,7 +129,7 @@ const LoginSignUpForm = () => {
       }
       localStorage.setItem ('token', res.data.token);
     //   setisLoggedIn (true);
-       navigate ('/lobby');
+       navigate ('/home');
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         const validationErrors = {};
